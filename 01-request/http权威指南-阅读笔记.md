@@ -34,11 +34,15 @@ URL(Uniform Resource Location 统一资源定位符) 是 URI(Uniform Resource Id
 
 URL的组成成分主要包括三部分，
 第一部分是方案，比如HTTP、FTp等；
+
 第二部分是服务器的因特网地址，比如www.google.com等；
+
 第三部分是web服务器上的某个资源，比如/product/index.html
 
 URL规范中，URL包括9个部分： 方案(scheme)，用户名(user)，密码(password)，主机名(host)，端口(port)，路径(path)，参数(param)，查询(query)，片段(frag);
+
 完整的URL模型：方案://用户名:密码@主机名:端口路径;参数?查询#片段
+
 例子： ftp://anonymous:password@ftp.mit.edu:80/test/index.txt;num=1;type=2?name=jack&gender=1#frag
 
 
