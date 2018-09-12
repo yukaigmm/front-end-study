@@ -1,0 +1,20 @@
+{
+  "name": "front-end-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "push": "git pull && git add . & git commit -m 'modify' && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yukaigmm/front-end-study.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yukaigmm/front-end-study/issues"
+  },
+  "homepage": "https://github.com/yukaigmm/front-end-study#readme"
+}
