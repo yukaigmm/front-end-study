@@ -32,7 +32,10 @@ http的响应报文中也包括三个部分： 起始行、响应头、响应主
 
 URL(Uniform Resource Location 统一资源定位符) 是 URI(Uniform Resource Identifier 统一资源标识) 的子集。URI包括URL和URN(Uniform Resource Name 统一资源名)，但是目前URN尚未实行，因此当前说的URI一般都是指URL。客户端可以通过URL寻找到互联网上对应的服务器主机上的资源，一个URL对应一个资源。
 
-URL的组成成分主要包括三部分，第一部分是方案，比如HTTP、FTp等；第二部分是服务器的因特网地址，比如www.google.com等；第三部分是web服务器上的某个资源，比如/product/index.html
+URL的组成成分主要包括三部分，
+第一部分是方案，比如HTTP、FTp等；
+第二部分是服务器的因特网地址，比如www.google.com等；
+第三部分是web服务器上的某个资源，比如/product/index.html
 
 URL规范中，URL包括9个部分： 方案(scheme)，用户名(user)，密码(password)，主机名(host)，端口(port)，路径(path)，参数(param)，查询(query)，片段(frag);
 完整的URL模型：方案://用户名:密码@主机名:端口路径;参数?查询#片段
