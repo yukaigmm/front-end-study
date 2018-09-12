@@ -1,7 +1,7 @@
 ## 1.请求及http协议相关
 ### (1) 阅读《http权威指南》前两部分
 
-1. 对客户端和服务端的交互有比较基本的了解[http权威指南阅读笔记](https://github.com/yukaigmm/front-end-study/blob/master/01-request/http%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0.md)
+1. 对客户端和服务端的交互，在具体内容上有初步的了解 [《http权威指南》阅读笔记-01-HTTP概述](https://github.com/yukaigmm/front-end-study/blob/master/01-request/http权威指南-阅读笔记-01-HTTP概述.md)
 
 ### (2) 实现类似axios的request工具
 ## 2.数据处理
