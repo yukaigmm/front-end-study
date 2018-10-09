@@ -1,0 +1,7 @@
+## 1.javascript基础事项
+###  （1）script标签的defer和async属性
+1. 只有外部引入js文件使用defer和async才有效。
+2. 分别使用defer和async时，两者都不会阻塞当前文档的解析，会开启另外的线程下载js文件。
+3. 使用defer的script标签引入的js文件，会在文档解析完成之后、DOMContentLoaded事件和load事件之前执行；但是使用async引入的js文件，会在文件下载之后立即执行。
+4. 多个使用defer的script标签引入的js文件，会按照文档中script标签的顺序依次执行；但是多个使用async引入的文件，执行顺序无法保证。
+总结：async和defer属性只能用在外部引入js的script标签中；两者在js文件的下载阶段表现是一样的，即都会开启新的线程下载js文件，不影响当前文档的解析；但是async会在加载js文件之后立刻执行js文件，defer加载的js文件会等待文档解析完成、DOMContentLoaded事件和load事件之前执行（这样会导致async加载的js文件执行顺序不确定，因为加载完之后就直接执行，不能确定哪个文件先加载完毕。但是defer加载的文件是在文档解析完成之后统一开始执行，因此多个使用defer加载的js文件是按照文档中script标签的顺序执行的。）
