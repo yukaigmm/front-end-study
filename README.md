@@ -7,7 +7,7 @@
 ## 2.数据处理
 ### (1) 阅读《JavaScript 高级程序设计》
 ### (2) 阅读《JavaScript 权威指南》
-### (3) 阅读《ECMAScript 入门》
+### (3) 阅读《ECMAScript6 入门》
 ### (4) 研究 lodash 的源码
 ## 3.状态管理
 ### (1) 研究 mobx
