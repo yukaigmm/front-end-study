@@ -6,6 +6,10 @@
 ### (2) 实现类似axios的request工具
 ## 2.数据处理
 ### (1) 阅读《JavaScript 高级程序设计》
+1.  ECMAScript 的数据类型和类型识别
+2.  ECMAScript 的数据运算和处理
+3.  ECMAScript 的单一和组合数据结构
+4.  ECMAScript 的设计模式
 ### (2) 阅读《JavaScript 权威指南》
 ### (3) 阅读《ECMAScript6 入门》
 ### (4) 研究 lodash 的源码
