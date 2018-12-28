@@ -313,7 +313,14 @@ replace()，接受两个参数， 第一个是要替换的对象，可以是字�
 ##### (2) 转换成 Number 类型
 
 ​	隐式转换成 Number 类型，跟转成 String 类型一样的步骤。
+##### (3) 转换成 Boolean 类型
+    数组转换成 Boolean 类型，一律都是true 。这就有个很有意思的事情，空数组转成 Number 为 0 ，但是转成 Boolean 为 true，因此，会有以下表达式
 
+    ```javascript
+        console.log([] ? true : false) // true
+        console.log([] == false) // true
+    ```
+    第一个，是获取表达式的 Boolean 值， 因此相当于 Boolean([]), 因此返回true；第二个，根据 == 操作符的计算规律，有一边有 Boolean 类型的数据，则转换成 Number 类型之后再运算。 也就是 [] == 0 即 "" == 0 ; 因此返回true.
 
 
 
