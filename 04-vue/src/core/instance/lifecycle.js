@@ -56,6 +56,9 @@ export function initLifecycle (vm: Component) {
 }
 
 export function lifecycleMixin (Vue) {
+  // _update 方法，是把 VNode 渲染成真实的 DOM。判断是否第一次渲染，调用 __patch__ 方法渲染 DOM
+  // __patch__方法定义在 src/platforms/web/runtime/index.js 中
+  // src/platforms/web/runtime/patch.js
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this
     const prevEl = vm.$el
@@ -139,6 +142,9 @@ export function lifecycleMixin (Vue) {
   }
 }
 
+// 使用 _render 方法获取 vnode， 再调用 _update 方法渲染到页面中
+// _render 方法定义在 src/core/instance/render.js 中
+// _update 方法定义在 src/core/instance/lifecycle.js 中
 export function mountComponent (vm, el, hydrating ) {
   vm.$el = el
   if (!vm.$options.render) {

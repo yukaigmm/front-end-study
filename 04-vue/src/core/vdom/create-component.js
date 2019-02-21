@@ -35,19 +35,12 @@ import {
 // inline hooks to be invoked on component VNodes during patch
 const componentVNodeHooks = {
   init (vnode, hydrating) {
-    if (
-      vnode.componentInstance &&
-      !vnode.componentInstance._isDestroyed &&
-      vnode.data.keepAlive
-    ) {
+    if ( vnode.componentInstance && !vnode.componentInstance._isDestroyed && vnode.data.keepAlive ) {
       // kept-alive components, treat as a patch
       const mountedNode: any = vnode // work around flow
       componentVNodeHooks.prepatch(mountedNode, mountedNode)
     } else {
-      const child = vnode.componentInstance = createComponentInstanceForVnode(
-        vnode,
-        activeInstance
-      )
+      const child = vnode.componentInstance = createComponentInstanceForVnode( vnode, activeInstance )
       child.$mount(hydrating ? vnode.elm : undefined, hydrating)
     }
   },
@@ -116,6 +109,7 @@ export function createComponent ( Ctor, data, context, children, tag ){
   const baseCtor = context.$options._base
 
   // 如果组件是对象，使用 Vue 将对象扩展成 构造函数，继承 Vue 的特性
+  // Vue.extend 方法 定义在 src/core/global-api/extend.js
   // plain options object: turn it into a constructor
   if (isObject(Ctor)) {
     Ctor = baseCtor.extend(Ctor)
@@ -191,7 +185,7 @@ export function createComponent ( Ctor, data, context, children, tag ){
   // install component management hooks onto the placeholder node
   /*------安装组件钩子函数------------------------------------------------------------------start*/
   installComponentHooks(data)
-  /*------构造子类构造函数-------------------------------------------------------------------end*/
+  /*------安装组件钩子函数-------------------------------------------------------------------end*/
 
   // 实例化VNode
   // return a placeholder vnode

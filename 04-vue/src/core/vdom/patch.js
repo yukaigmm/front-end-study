@@ -122,15 +122,8 @@ export function createPatchFunction (backend) {
 
   let creatingElmInVPre = 0
 
-  function createElm (
-    vnode,
-    insertedVnodeQueue,
-    parentElm,
-    refElm,
-    nested,
-    ownerArray,
-    index
-  ) {
+  // createElm 的作用是通过虚拟节点创建真实的 DOM 并插入到它的父节点中
+  function createElm ( vnode, insertedVnodeQueue, parentElm, refElm, nested, ownerArray, index ) {
     if (isDef(vnode.elm) && isDef(ownerArray)) {
       // This vnode was used in a previous render!
       // now it's used as a new node, overwriting its elm would cause

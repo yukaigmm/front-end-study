@@ -38,10 +38,11 @@ const ALWAYS_NORMALIZE = 2
  * @param {*} data 
  * @param {*} children 
  * @param {*} normalizationType 表示子节点规范的类型。类型不同，规范的方法就不一样，主要是参考 render 函数是编译生成的还是用户手写的。
- * @param {*} alwaysNormalize 
+ * @param {Boolean} alwaysNormalize  true 或 false, 如果为 true，则是用户手写的 render 函数；如果为 false，则是模板编译过来的
  */
+// createElement 实际上是对 _createElement 方法的封装，允许传入的参数更加灵活
 export function createElement ( context, tag, data, children, normalizationType, alwaysNormalize ){
-  // 如果 render 函数的第二个参数是数组，第二至第四个参数往后挪一位，第二位设置为undefined
+  // 如果 render 函数的第二个参数是数组或是基本数据类型，第二至第四个参数往后挪一位，第二位设置为undefined
   if (Array.isArray(data) || isPrimitive(data)) {
     normalizationType = children
     children = data
@@ -53,6 +54,14 @@ export function createElement ( context, tag, data, children, normalizationType,
   return _createElement(context, tag, data, children, normalizationType)
 }
 
+/**
+ * 
+ * @param {Component} context 表示 VNode 的上下文环境
+ * @param {String/Component} tag 表示标签
+ * @param {VNode} data 表示VNode的数据
+ * @param {*} children VNode 的子节点
+ * @param {*} normalizationType 表示子节点规范的类型，类型不同规范的方法也不一样
+ */
 export function _createElement (context, tag,  data , children, normalizationType){
   // 如果data 带有 __ob__ 属性，且不是在生产环境，就提示错误信息；并返回空的VNode
   if (isDef(data) && isDef(data.__ob__)) {
@@ -75,7 +84,6 @@ export function _createElement (context, tag,  data , children, normalizationTyp
     return createEmptyVNode()
   }
 
-  // 如果data的属性键名不是 原始数据类型，提示错误
   // warn against non-primitive key
   if (process.env.NODE_ENV !== 'production' && isDef(data) && isDef(data.key) && !isPrimitive(data.key)) {
     if (!__WEEX__ || !('@binding' in data.key)) {
@@ -96,7 +104,7 @@ export function _createElement (context, tag,  data , children, normalizationTyp
   }
   // 规范化 children 之后，创建 VNode 实例
   let vnode, ns
-  // 如果 tag 是 string 类型，则继续判断是否是内置的节点，如果是，则直接创建普通的 VNode，如果是已注册的组件名，则通过 createComponent 创建一个组件类型的 VNode 否则创建一个未知标签类型的 Vnode
+  // 如果 tag 是 string 类型，则继续判断是否是内置的节点，如果是，则直接创建普通的 VNode，如果是已注册的组件名，则通过 createComponent 创建一个组件类型的 VNode， 否则创建一个未知标签类型的 Vnode
   // 如果 tag 是一个 Component 类型， 则直接调用 createComponent 创建一个组件类型的节点
   if (typeof tag === 'string') {
     let Ctor

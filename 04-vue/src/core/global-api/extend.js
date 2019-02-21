@@ -15,7 +15,7 @@ export function initExtend (Vue: GlobalAPI) {
 
   /**
    * Class inheritance
-   * 使用原型继承的方式，把一个纯对象转成一个继承与 Vue 的构造器 Sub 并返回，
+   * 使用原型继承的方式，把一个纯对象转成一个继承于 Vue 的构造器 Sub 并返回，
    * 然后对 Sub 对象做了一些拓展，并对 Sub 构造函数做了缓存，避免 Vue.extend 的时候对同一个子组件重复构造
    */
   Vue.extend = function (extendOptions) {
@@ -33,6 +33,7 @@ export function initExtend (Vue: GlobalAPI) {
       validateComponentName(name)
     }
 
+    // 创建 Sub 构造函数并继承 Super 的原型
     const Sub = function VueComponent (options) {
       this._init(options)
     }

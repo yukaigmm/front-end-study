@@ -14,11 +14,10 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
+// 将原型上的 $mount 赋值给 mount 并重新定义该方法，最后使用 mount 挂载 vue 实例；
+// 原型上的 $mount 方法定义在 src/platform/web/runtime/index.js 中
 const mount = Vue.prototype.$mount
-Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
-): Component {
+Vue.prototype.$mount = function ( el, hydrating ) {
   el = el && query(el)
 
   // 如果挂载的元素是body或是根元素，则提示并返回
@@ -32,6 +31,8 @@ Vue.prototype.$mount = function (
 
   const options = this.$options
   // resolve template/el and convert to render function
+  // 如果没有 render 方法， 则把 template 或者 el 转换成 render 方法。
+  // 调用 compileToFunctions 方法，根据 template 实现 render
   if (!options.render) {
     let template = options.template
     if (template) {
@@ -40,10 +41,7 @@ Vue.prototype.$mount = function (
           template = idToTemplate(template)
           /* istanbul ignore if */
           if (process.env.NODE_ENV !== 'production' && !template) {
-            warn(
-              `Template element not found or is empty: ${options.template}`,
-              this
-            )
+            warn( `Template element not found or is empty: ${options.template}`, this )
           }
         }
       } else if (template.nodeType) {

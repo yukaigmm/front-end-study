@@ -12,9 +12,9 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 
 let uid = 0
 
-export function initMixin (Vue: Class<Component>) {
-  Vue.prototype._init = function (options?: Object) {
-    const vm: Component = this
+export function initMixin (Vue) {
+  Vue.prototype._init = function (options) {
+    const vm = this
     // a uid
     vm._uid = uid++
 
@@ -36,11 +36,7 @@ export function initMixin (Vue: Class<Component>) {
       initInternalComponent(vm, options)
     } else {
       // 把 Vue 上的一些 option 扩展到 vm.$option 上
-      vm.$options = mergeOptions(
-        resolveConstructorOptions(vm.constructor),
-        options || {},
-        vm
-      )
+      vm.$options = mergeOptions( resolveConstructorOptions(vm.constructor), options || {}, vm )
     }
     /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
@@ -65,7 +61,7 @@ export function initMixin (Vue: Class<Component>) {
       mark(endTag)
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
-
+    // 如果检测到有 el 属性，则调用 vm.$mount 方法挂载 vm ， 挂载的目标就是把模板渲染成最终的 DOM
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }

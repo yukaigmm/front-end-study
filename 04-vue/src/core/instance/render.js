@@ -15,7 +15,7 @@ import VNode, { createEmptyVNode } from '../vdom/vnode'
 
 import { isUpdatingChildComponent } from './lifecycle'
 
-export function initRender (vm: Component) {
+export function initRender (vm) {
   vm._vnode = null // the root of the child tree
   vm._staticTrees = null // v-once cached trees
   const options = vm.$options
@@ -50,28 +50,31 @@ export function initRender (vm: Component) {
   }
 }
 
-export function renderMixin (Vue: Class<Component>) {
+export function renderMixin (Vue) {
   // install runtime convenience helpers
   installRenderHelpers(Vue.prototype)
 
-  Vue.prototype.$nextTick = function (fn: Function) {
+  Vue.prototype.$nextTick = function (fn) {
     return nextTick(fn, this)
   }
 
-  Vue.prototype._render = function (): VNode {
-    const vm: Component = this
+  // 该方法调用 render 方法，返回 vnode
+  // vm.$options 的 render 方法，是在 $mount 被覆盖的时候加上去的，是根据 template 作为参数 通过 compileToFunctions 方法生成的
+  Vue.prototype._render = function () {
+    const vm = this
     const { render, _parentVnode } = vm.$options
 
     if (_parentVnode) {
       vm.$scopedSlots = _parentVnode.data.scopedSlots || emptyObject
     }
 
-    // set parent vnode. this allows render functions to have access
-    // to the data on the placeholder node.
+    // set parent vnode. this allows render functions to have access to the data on the placeholder node.
+    // 设置 父节点， 这样可以使得 render 方法 能够获取到 占位的元素节点 （#app）
     vm.$vnode = _parentVnode
     // render self
     let vnode
     try {
+      // vm._renderProxy 就是 vm 本身
       vnode = render.call(vm._renderProxy, vm.$createElement)
     } catch (e) {
       handleError(e, vm, `render`)
