@@ -18,10 +18,10 @@ import {
   validateProp
 } from '../util/index'
 
-export let activeInstance: any = null
-export let isUpdatingChildComponent: boolean = false
+export let activeInstance = null
+export let isUpdatingChildComponent = false
 
-export function setActiveInstance(vm: Component) {
+export function setActiveInstance(vm) {
   const prevActiveInstance = activeInstance
   activeInstance = vm
   return () => {
@@ -62,12 +62,13 @@ export function lifecycleMixin (Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this
     const prevEl = vm.$el
+    // 在 initRender 方法中， 首次定义 vm_vnode = null
     const prevVnode = vm._vnode
     const restoreActiveInstance = setActiveInstance(vm)
     vm._vnode = vnode
     // Vue.prototype.__patch__ is injected in entry points
     // based on the rendering backend used.
-    // 如果之前没有 VNode， 则初始渲染，否则就是正常更新
+    // 如果没有 vm._vnode ， 则初始渲染，否则就是正常更新；在 initRender 方法中，曾设置 vm._vnode = null;
     if (!prevVnode) {
       // initial render
       vm.$el = vm.__patch__(vm.$el, vnode, hydrating, false /* removeOnly */)
@@ -75,6 +76,7 @@ export function lifecycleMixin (Vue) {
       // updates
       vm.$el = vm.__patch__(prevVnode, vnode)
     }
+    // 这个没看太懂，好像 activeInstance 还是 null ？
     restoreActiveInstance()
     // update __vue__ reference
     if (prevEl) {
@@ -146,6 +148,7 @@ export function lifecycleMixin (Vue) {
 // _render 方法定义在 src/core/instance/render.js 中
 // _update 方法定义在 src/core/instance/lifecycle.js 中
 export function mountComponent (vm, el, hydrating ) {
+  // 首次定义 vm.$el,指向传入的 DOM 节点 
   vm.$el = el
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode

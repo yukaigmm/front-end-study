@@ -750,6 +750,7 @@ export function createPatchFunction (backend) {
         const parentElm = nodeOps.parentNode(oldElm)
 
         // create new node
+        // 这个地方，insertedVnodeQueue 值 是什么？
         createElm(
           vnode,
           insertedVnodeQueue,
