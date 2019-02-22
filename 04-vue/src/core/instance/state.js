@@ -45,7 +45,7 @@ export function proxy (target: Object, sourceKey: string, key: string) {
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 
-export function initState (vm: Component) {
+export function initState (vm) {
   vm._watchers = []
   const opts = vm.$options
   if (opts.props) initProps(vm, opts.props)
@@ -259,7 +259,7 @@ function createGetterInvoker(fn) {
   }
 }
 
-function initMethods (vm: Component, methods: Object) {
+function initMethods (vm, methods) {
   const props = vm.$options.props
   for (const key in methods) {
     if (process.env.NODE_ENV !== 'production') {
@@ -316,21 +316,15 @@ function createWatcher (
   return vm.$watch(expOrFn, handler, options)
 }
 
-export function stateMixin (Vue: Class<Component>) {
-  // flow somehow has problems with directly declared definition object
-  // when using Object.defineProperty, so we have to procedurally build up
-  // the object here.
+export function stateMixin (Vue) {
+  // flow somehow has problems with directly declared definition object when using Object.defineProperty, so we have to procedurally build up the object here.
   const dataDef = {}
   dataDef.get = function () { return this._data }
   const propsDef = {}
   propsDef.get = function () { return this._props }
   if (process.env.NODE_ENV !== 'production') {
     dataDef.set = function () {
-      warn(
-        'Avoid replacing instance root $data. ' +
-        'Use nested data properties instead.',
-        this
-      )
+      warn( 'Avoid replacing instance root $data. Use nested data properties instead.', this )
     }
     propsDef.set = function () {
       warn(`$props is readonly.`, this)
@@ -342,12 +336,8 @@ export function stateMixin (Vue: Class<Component>) {
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
 
-  Vue.prototype.$watch = function (
-    expOrFn: string | Function,
-    cb: any,
-    options?: Object
-  ): Function {
-    const vm: Component = this
+  Vue.prototype.$watch = function ( expOrFn, cb, options ) {
+    const vm = this
     if (isPlainObject(cb)) {
       return createWatcher(vm, expOrFn, cb, options)
     }

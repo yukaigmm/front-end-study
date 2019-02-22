@@ -13,6 +13,7 @@ import { extend, mergeOptions, formatComponentName } from '../util/index'
 let uid = 0
 
 export function initMixin (Vue) {
+  // init 方法主要是对 vm 实例做一些初始化的工作，1. 把 option 合并到 vm.$options 中，2.初始化生命周期、事件监听、绑定render
   Vue.prototype._init = function (options) {
     const vm = this
     // a uid
@@ -20,6 +21,7 @@ export function initMixin (Vue) {
 
     let startTag, endTag
     /* istanbul ignore if */
+    // config.performance 为 false ，所以跳过这个分支
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
       startTag = `vue-perf-start:${vm._uid}`
       endTag = `vue-perf-end:${vm._uid}`
@@ -30,12 +32,13 @@ export function initMixin (Vue) {
     vm._isVue = true
     // merge options
     if (options && options._isComponent) {
-      // optimize internal component instantiation
+      // optimize internal component instantiation 优化内部组件实例化
       // since dynamic options merging is pretty slow, and none of the
       // internal component options needs special treatment.
       initInternalComponent(vm, options)
     } else {
-      // 把 Vue 上的一些 option 扩展到 vm.$option 上
+      // 把 Vue 上的一些 option 扩展到 vm.$option 上，首次将 $options 绑定到 vm 上
+      // Vue.options 是在 src\platforms\web\runtime\directives\index.js 中加上去的，主要是内置组件和指令，过滤器等
       vm.$options = mergeOptions( resolveConstructorOptions(vm.constructor), options || {}, vm )
     }
     /* istanbul ignore else */
@@ -62,6 +65,7 @@ export function initMixin (Vue) {
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
     // 如果检测到有 el 属性，则调用 vm.$mount 方法挂载 vm ， 挂载的目标就是把模板渲染成最终的 DOM
+    // 在 mergeOptions 方法中，options 中的 el 属性合并到 vm.$options 中了
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }
@@ -87,7 +91,7 @@ export function initInternalComponent (vm: Component, options: InternalComponent
   }
 }
 
-export function resolveConstructorOptions (Ctor: Class<Component>) {
+export function resolveConstructorOptions (Ctor) {
   let options = Ctor.options
   if (Ctor.super) {
     const superOptions = resolveConstructorOptions(Ctor.super)

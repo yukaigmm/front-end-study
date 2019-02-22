@@ -19,7 +19,7 @@ export function initEvents (vm: Component) {
   }
 }
 
-let target: any
+let target
 
 function add (event, fn) {
   target.$on(event, fn)
@@ -49,10 +49,10 @@ export function updateComponentListeners (
   target = undefined
 }
 
-export function eventsMixin (Vue: Class<Component>) {
+export function eventsMixin (Vue) {
   const hookRE = /^hook:/
-  Vue.prototype.$on = function (event: string | Array<string>, fn: Function): Component {
-    const vm: Component = this
+  Vue.prototype.$on = function (event, fn) {
+    const vm = this
     if (Array.isArray(event)) {
       for (let i = 0, l = event.length; i < l; i++) {
         vm.$on(event[i], fn)
@@ -68,8 +68,8 @@ export function eventsMixin (Vue: Class<Component>) {
     return vm
   }
 
-  Vue.prototype.$once = function (event: string, fn: Function): Component {
-    const vm: Component = this
+  Vue.prototype.$once = function (event, fn) {
+    const vm = this
     function on () {
       vm.$off(event, on)
       fn.apply(vm, arguments)
@@ -79,8 +79,8 @@ export function eventsMixin (Vue: Class<Component>) {
     return vm
   }
 
-  Vue.prototype.$off = function (event?: string | Array<string>, fn?: Function): Component {
-    const vm: Component = this
+  Vue.prototype.$off = function (event, fn) {
+    const vm = this
     // all
     if (!arguments.length) {
       vm._events = Object.create(null)
@@ -117,8 +117,8 @@ export function eventsMixin (Vue: Class<Component>) {
     return vm
   }
 
-  Vue.prototype.$emit = function (event: string): Component {
-    const vm: Component = this
+  Vue.prototype.$emit = function (event) {
+    const vm = this
     if (process.env.NODE_ENV !== 'production') {
       const lowerCaseEvent = event.toLowerCase()
       if (lowerCaseEvent !== event && vm._events[lowerCaseEvent]) {

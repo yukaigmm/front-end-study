@@ -17,21 +17,20 @@ const idToTemplate = cached(id => {
 // 将原型上的 $mount 赋值给 mount 并重新定义该方法，最后使用 mount 挂载 vue 实例；
 // 原型上的 $mount 方法定义在 src/platform/web/runtime/index.js 中
 const mount = Vue.prototype.$mount
+// vm.$mount 的作用是 生成 render 方法并挂在 vm.$options 上（如果没有vm.$options.render），然后使用原先的 $mount 方法挂载到 dom 上
 Vue.prototype.$mount = function ( el, hydrating ) {
   el = el && query(el)
 
   // 如果挂载的元素是body或是根元素，则提示并返回
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
-    process.env.NODE_ENV !== 'production' && warn(
-      `Do not mount Vue to <html> or <body> - mount to normal elements instead.`
-    )
+    process.env.NODE_ENV !== 'production' && warn( `Do not mount Vue to <html> or <body> - mount to normal elements instead.` )
     return this
   }
 
   const options = this.$options
   // resolve template/el and convert to render function
-  // 如果没有 render 方法， 则把 template 或者 el 转换成 render 方法。
+  // 如果 vm.$options 没有 render 方法， 则把 template 或者 el 转换成 render 方法并挂在 vm.$options 上。
   // 调用 compileToFunctions 方法，根据 template 实现 render
   if (!options.render) {
     let template = options.template

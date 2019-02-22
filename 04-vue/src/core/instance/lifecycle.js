@@ -29,7 +29,7 @@ export function setActiveInstance(vm) {
   }
 }
 
-export function initLifecycle (vm: Component) {
+export function initLifecycle (vm) {
   const options = vm.$options
 
   // locate first non-abstract parent
@@ -94,14 +94,14 @@ export function lifecycleMixin (Vue) {
   }
 
   Vue.prototype.$forceUpdate = function () {
-    const vm: Component = this
+    const vm = this
     if (vm._watcher) {
       vm._watcher.update()
     }
   }
 
   Vue.prototype.$destroy = function () {
-    const vm: Component = this
+    const vm = this
     if (vm._isBeingDestroyed) {
       return
     }

@@ -20,10 +20,10 @@ function Vue (options) {
 // 在 mountComponent 方法中，使用 vm._render 方法生成 vnode 传入 vm._update 方法中，挂载 dom
 //  vm._render 方法中是调用 vm.$createElement 方法生成 dom
 
-initMixin(Vue)
-stateMixin(Vue)
-eventsMixin(Vue)
-lifecycleMixin(Vue)
-renderMixin(Vue)
+initMixin(Vue)      // 给 Vue.protoType 上绑定了 _init 方法
+stateMixin(Vue)     // 数据双向绑定的一些设置
+eventsMixin(Vue)    // 组件间传值的事件的绑定
+lifecycleMixin(Vue) // 给 Vue.protoType 上绑定了 _update, $forceUpdate, $destroy 方法
+renderMixin(Vue)    // 给 Vue.protoType 上绑定了 _render, $nextTick 方法
 
 export default Vue
