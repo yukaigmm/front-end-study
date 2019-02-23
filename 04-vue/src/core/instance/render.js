@@ -16,6 +16,7 @@ import VNode, { createEmptyVNode } from '../vdom/vnode'
 import { isUpdatingChildComponent } from './lifecycle'
 
 export function initRender (vm) {
+  //  首次将vm._vnode 设置成 null
   vm._vnode = null // the root of the child tree
   vm._staticTrees = null // v-once cached trees
   const options = vm.$options
@@ -58,7 +59,7 @@ export function renderMixin (Vue) {
     return nextTick(fn, this)
   }
 
-  // 该方法调用 render 方法，返回 vnode
+  // 该方法调用 render 方法，返回 vnode，并给 vnode 添加 parent 属性
   // vm.$options 的 render 方法，是在 $mount 被覆盖的时候加上去的，是根据 template 作为参数 通过 compileToFunctions 方法生成的
   Vue.prototype._render = function () {
     const vm = this
