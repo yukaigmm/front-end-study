@@ -97,6 +97,7 @@ export function _createElement (context, tag,  data , children, normalizationTyp
     data.scopedSlots = { default: children[0] }
     children.length = 0
   }
+  // normalizationType 表示子节点规范的类型。类型不同，规范的方法就不一样，主要是参考 render 函数是编译生成的还是用户手写的。
   if (normalizationType === ALWAYS_NORMALIZE) {
     children = normalizeChildren(children)
   } else if (normalizationType === SIMPLE_NORMALIZE) {
