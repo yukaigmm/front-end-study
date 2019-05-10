@@ -1,6 +1,3 @@
 const _ = require("./my-lodash.js");
 
-// console.log(_.fill([1, 2, 3], 'a'))
-// console.log(_.fill(new Array(3), 2))
-// console.log(_.fill([4, 6, 8, 10], '*', 1, 3))
-
+console.log(_.sortedIndex([30,33, 22,50,45,33,50], 40));
