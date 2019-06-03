@@ -61,4 +61,5 @@
   13. 完成一个自己的网站（30天）
 
 
-1.长效缓存
+1.长效缓存 https://www.webpackjs.com/guides/caching/
+
