@@ -1,7 +1,7 @@
 # ECMAScript 基础（一）---- 数据类型以及类型检验
 ## 一、 ECMAScript 的数据类型划分
 
-​	在ECMAScript中，数据类型分为简单数据类型（基础数据类型）和复杂数据类型。其中，简单数据类型有5种，即 String，Number， Boolean， Undefined， Null 。复杂数据类型只有一种，即Object类型。Array、Function等数据类型都是特殊的Object类型。
+​	在ECMAScript中，数据类型分为简单数据类型（基础数据类型）和复杂数据类型。其中，简单数据类型有5种（es6 加入了 Symbol 类型，简单数据类型变为6种），即 String，Number， Boolean， Undefined， Null 。复杂数据类型只有一种，即Object类型。Array、Function等数据类型都是特殊的Object类型。
 
 ​	ECMAScript是弱类型的语言，变量在声明时没有类型声明，声明变量之后，变量的数据类型可以改变。
 
@@ -11,7 +11,7 @@
 
 #### 1. typeof 操作符的返回值
 
-​	在没有语法错误的情况下，typeof的返回值类型为字符串，有6个字符串备选： number， string， boolean， undefined， object， function。在使用typeof操作符进行数据类型判断时，只可能返回这6个字符串中的一种，不可能有其他的返回值。
+​	在没有语法错误的情况下，typeof的返回值类型为字符串，有7个字符串备选： number， string， boolean， undefined， object， function，symbol。在使用typeof操作符进行数据类型判断时，只可能返回这7个字符串中的一种，不可能有其他的返回值。
 
 ​	一般情况下， typeof操作变量是不会报错的，即使typeof操作的变量尚未声明。但是在使用typeof操作符在let和const声明变量之前操作变量，会报语法错误，这是由于let 和const 声明变量时会有”暂存性死区“。
 
@@ -29,7 +29,7 @@ let d = "dtest";
 
 ​	使用typeof操作符操作String， Number， Boolean，Undefined以及Object类型的数据，都返回对应的字符串类型，但是typeof null 会返回object，操作函数会返回function。
 
-​	ECMAScript的数据类型划分，是分为Number，String， Boolean， Undefined， Null五种简单数据类型以及一种复杂数据类型Object。但是在我们平时的开发中，一般会需要知道更细的数据类型，比如Object类型包括Function，Array等。但是typeof操作符只能区分函数和其他的Object类型数据，无法知道更加详细的数据类型，而且typeof null返回的不是数据类型Null对应的类型字符串，因此在实际开发中，typeof操作符的使用具有局限性。
+​	ECMAScript的数据类型划分，是分为Number，String， Boolean， Undefined， Null， Symbol 6种简单数据类型以及一种复杂数据类型Object。但是在我们平时的开发中，一般会需要知道更细的数据类型，比如Object类型包括Function，Array等。但是typeof操作符只能区分函数和其他的Object类型数据，无法知道更加详细的数据类型，而且typeof null返回的不是数据类型Null对应的类型字符串，因此在实际开发中，typeof操作符的使用具有局限性。
 
 #### 3. typeof操作符的执行原理解析
 
@@ -139,11 +139,11 @@ index.html:66 Object.prototype.toString.call(/(?:)/)//"[object RegExp]"
 
 ​	此处需要重点提出**基本包装类型**的类型检验问题。将一个值赋给变量的时候，解析器必须确定这个值是基本类型值还是引用类型值。这里引出两个概念，基本类型值和引用类型值（其实可以对应基本数据类型和对象数据类型）。
 
-​	**基本类型值**指的是简单的数据段，可以操作保存在变量中的实际的值（按值访问），5 种基本数据类型就是按值访问的。
+​	**基本类型值**指的是简单的数据段，可以操作保存在变量中的实际的值（按值访问），6 种基本数据类型就是按值访问的。
 
 ​	**引用类型值**指的是可能由多个值组成的对象（引用类型的实例），ECMAScript 中，不能直接操作对象的内存空间，在操作对象时，实际上是在操作对象的引用而不是实际的对象（按引用传递）。
 
-​	一般而言，引用类型值由于是引用类型的实例（引用类型：是一种数据结构，用于将数据和功能组合在一起），所以用 typeof 操作符返回的肯定都是 object 或是 function。 但是我们需要注意 : 引用类型里面有一种比较特殊的类型，就是基本包装类型。基本包装类型可以理解成对于除了null 和 undefined 之外的三种基本数据类型的包装，给基本数据生成了原型链（实际上生成之后马上销毁了）以保证基本数据类型也能访问属性和调用方法，比如 
+​	一般而言，引用类型值由于是引用类型的实例（引用类型：是一种数据结构，用于将数据和功能组合在一起），所以用 typeof 操作符返回的肯定都是 object 或是 function。 但是我们需要注意 : 引用类型里面有一种比较特殊的类型，就是基本包装类型。基本包装类型可以理解成对于除了null 和 undefined 之外的基本数据类型的包装，给基本数据生成了原型链（实际上生成之后马上销毁了）以保证基本数据类型也能访问属性和调用方法，比如 
 
 ```javascript
 let a = "12";

@@ -203,9 +203,8 @@ export function createComponent ( Ctor, data, context, children, tag ){
   return vnode
 }
 
-export function createComponentInstanceForVnode (
-  vnode: any, // we know it's MountedComponentVNode but flow doesn't
-  parent: any, // activeInstance in lifecycle state
+export function createComponentInstanceForVnode ( vnode, // we know it's MountedComponentVNode but flow doesn't
+  parent, // activeInstance in lifecycle state
 ): Component {
   const options: InternalComponentOptions = {
     _isComponent: true,
@@ -265,3 +264,5 @@ function transformModel (options, data) {
     on[event] = callback
   }
 }
+
+// 现在
