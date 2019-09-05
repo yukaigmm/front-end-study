@@ -108,7 +108,7 @@ export function createComponent ( Ctor, data, context, children, tag ){
   // baseCtor 是取的 Vue 本身
   const baseCtor = context.$options._base
 
-  // 如果组件是对象，使用 Vue 将对象扩展成 构造函数，继承 Vue 的特性
+  // 如果组件是对象，使用 Vue 将对象扩展成 构造函数，继承 Vue 的特性；extend 方法中，会再次调用 this._init 方法
   // Vue.extend 方法 定义在 src/core/global-api/extend.js
   // plain options object: turn it into a constructor
   if (isObject(Ctor)) {

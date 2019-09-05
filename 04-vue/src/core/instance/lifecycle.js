@@ -62,7 +62,7 @@ export function lifecycleMixin (Vue) {
   Vue.prototype._update = function (vnode, hydrating) {
     const vm = this
     const prevEl = vm.$el
-    // 在 initRender 方法中， 首次定义 vm_vnode = null
+    // 在 initRender 方法中， 首次定义 vm._vnode = null
     const prevVnode = vm._vnode
     const restoreActiveInstance = setActiveInstance(vm)
     vm._vnode = vnode
@@ -86,6 +86,7 @@ export function lifecycleMixin (Vue) {
       vm.$el.__vue__ = vm
     }
     // if parent is an HOC, update its $el as well
+    // HOC --- 高阶组件
     if (vm.$vnode && vm.$parent && vm.$vnode === vm.$parent._vnode) {
       vm.$parent.$el = vm.$el
     }
