@@ -1,23 +1,27 @@
-;
-var user = {
-    firstName: "Jane",
-    lastName: "User"
-};
-function greeter(person) {
-    return "Hello, " + person;
+function createClock(ctor, hour, minute) {
+    return new ctor(hour, minute);
 }
-;
-document.body.innerHTML = greeter(user);
-var Student = (function () {
-    function Student(firstName, middleInitial, lastName) {
-        this.firstName = firstName;
-        this.middleInitial = middleInitial;
-        this.lastName = lastName;
-        this.fullName = firstName + "" + middleInitial + "" + lastName;
+var DigitalClock = (function () {
+    function DigitalClock(h, m) {
     }
-    return Student;
+    DigitalClock.prototype.tick = function () {
+        console.log("beep beep");
+    };
+    return DigitalClock;
 }());
-;
-var user1 = new Student("Jane", "M.", "User");
-greeter(user1);
+var AnalogClock = (function () {
+    function AnalogClock(h, m) {
+    }
+    AnalogClock.prototype.tick = function () {
+        console.log("tick tock");
+    };
+    return AnalogClock;
+}());
+var digital = createClock(DigitalClock, 12, 17);
+var analog = createClock(AnalogClock, 7, 32);
+console.log(digital);
+digital.tick();
+var arr = [];
+var num = 1;
+var square = {};
 //# sourceMappingURL=test.js.map

@@ -1,21 +1,36 @@
-interface Person {
-    firstName: string,
-    lastName: string
-};
-let user = {
-    firstName: "Jane",
-    lastName: "User",
-};
-function greeter (person : Person):string {
-    return "Hello, " + person;
-};
-document.body.innerHTML = greeter(user);
+interface ClockConstructor {
+    new(hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    tick: () => void;
+}
 
-class Student{
-    fullName: string;
-    constructor(public firstName: string, public middleInitial: string ,public lastName: string){
-        this.fullName = firstName + "" + middleInitial + "" + lastName;
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("beep beep");
     }
-};
-let user1 = new Student("Jane", "M.", "User");
-greeter(user1);
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("tick tock");
+    }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+console.log(digital)
+digital.tick()
+
+let arr = <Array<number>> [];
+let num = <number> 1;
+
+interface Square {
+
+}
+let square = <Square>{};
